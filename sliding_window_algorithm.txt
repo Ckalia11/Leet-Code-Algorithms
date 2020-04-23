@@ -1,0 +1,66 @@
+# median of elements in lst
+
+def sum_sub(lst, k):
+    l = []
+    for i,v in enumerate(lst):
+        l.append(v)
+        if len(l) == k:
+            m = l.copy()
+            find_median(m)
+            print(l)
+        if len(l) > k:
+            del l[0]
+            m = l.copy()
+            find_median(m)
+def find_median(m):
+    m.sort()
+    s = m[int(len(m) / 2)]
+    v = m[int((len(m) / 2) - 1)]
+    if len(m) % 2 != 0:
+        print(s)
+    else:
+        print( (s + v) / 2)
+            
+lst = [7,1,5,2,3]
+k = 3
+sum_sub(lst,k)
+
+## max sum k consecutive elements sliding window
+def consecutive_elements(lst, k, n):
+    current_sum = 0
+    max_sum = 0
+    for i,v in enumerate(lst):
+        current_sum += v
+        if i == k - 1:
+            max_sum = current_sum
+        elif i > k - 1:  
+            current_sum -= lst[i - k]
+            max_sum = max(current_sum, max_sum) 
+    return max_sum
+    
+lst = [3,2,7,5,6,4,3,9]
+n = len(lst)
+k = 4
+consecutive_elements(lst, k, n)
+
+## max sum of k consecutive elements brute force
+
+import sys 
+INT_MIN = -sys.maxsize -1
+def maxSum(arr, n, k): 
+    max_sum = 0
+    for i in range(n - k + 1):
+        current_sum = arr[i]
+        for j in range(i + 1, k + i):
+            current_sum += arr[j]
+        max_sum = max(current_sum, max_sum)
+    return max_sum
+        
+        
+# Driver code 
+arr = [1, 4, 2, 10, 2,  
+          3, 1, 0, 20]; 
+k = 3; 
+n = len(arr); 
+print(maxSum(arr, n, k));
+        
